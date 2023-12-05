@@ -1,0 +1,9 @@
+<div class="card style-card">
+  <img [src]="'../../../assets/img/'+data.img" class="card-img-top img-card" [alt]="data.Title">
+  <div class="card-body">
+    <h5 class="card-title text-center">{{data.Title}}</h5>
+    <p class="card-text">{{data.Description}}</p>
+    <button type="button" class="btn btn-primary">Details</button>
+    <button type="button" class="btn btn-warning" (click)="addFavorite(data)">Add Favorite</button>
+  </div>
+</div>
