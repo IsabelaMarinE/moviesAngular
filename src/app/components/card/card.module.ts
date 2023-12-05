@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from './card.component';
+import { YouTubePlayerModule } from "@angular/youtube-player";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -8,7 +10,9 @@ import { CardComponent } from './card.component';
     CardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    YouTubePlayerModule,
+    NgbModule
   ],
   exports: [
     CardComponent

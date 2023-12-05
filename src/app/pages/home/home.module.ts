@@ -11,6 +11,7 @@ import { MovieService } from '../../services/movie.service'
 import { FormsModule } from '@angular/forms'
 
 
+
 @NgModule({
   declarations: [
     HomeComponent

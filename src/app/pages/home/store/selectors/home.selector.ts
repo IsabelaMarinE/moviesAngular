@@ -29,3 +29,10 @@ export const selectMovie = createSelector(
   (state: homeStore.HomeStoreState) =>
     state.homeStore.movie
 );
+
+export const filterMovie = createSelector(
+  selectMoveStoreState,
+  (state: homeStore.HomeStoreState) =>
+    state.homeStore.filterMovies
+);
+

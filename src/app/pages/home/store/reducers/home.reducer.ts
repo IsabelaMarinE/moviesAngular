@@ -12,6 +12,7 @@ export interface HomeState {
     listMoviesFavorite: listMovies | undefined;
     addMovie: listMovies | undefined;
     removeMovie: listMovies | undefined;
+    filterMovies: listMovies | undefined;
 }
 
 export const initialHomeState: HomeState = {
@@ -19,7 +20,8 @@ export const initialHomeState: HomeState = {
   movie: undefined,
   listMoviesFavorite: undefined,
   addMovie: undefined,
-  removeMovie: undefined
+  removeMovie: undefined,
+  filterMovies: undefined
 };
 
 export const homeReducer = createReducer(
@@ -30,7 +32,8 @@ export const homeReducer = createReducer(
         listMoviesFavorite: undefined,
         movie: undefined,
         addMovie: undefined,
-        removeMovie: undefined
+        removeMovie: undefined,
+        filterMovies: undefined
     })),
     on(HomeActions.loadMovies, (state: HomeState) => ({
         ...state,

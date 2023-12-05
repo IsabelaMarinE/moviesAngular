@@ -9,6 +9,8 @@ export class CardComponent {
   @Input() data: any;
   @Output() addNewMovieFavorite = new EventEmitter<any>();
 
+  constructor(){ }
+
   public addFavorite(item: any){
     this.addNewMovieFavorite.emit(item);
   }

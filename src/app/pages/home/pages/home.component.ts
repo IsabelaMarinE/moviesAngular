@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { HomeStoreState } from '../store/reducers/home-store.reducer';
@@ -7,7 +7,6 @@ import * as homeActions from '../store/actions/home.actions';
 import * as homeSelector from '../store/selectors/home.selector';
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import { Search } from '../../../components/models/serach.model';
 import { Movie } from '../../../components/models/movie.model';
 
 
@@ -19,12 +18,12 @@ import { Movie } from '../../../components/models/movie.model';
 export class HomeComponent implements OnInit {
 
   public ngDestroyed$ = new Subject();
-  public search = new Search();
   public Movies: any = [];
+  public searchText: string = '';
 
   constructor(
     private homeStore: Store<HomeStoreState>,
-    private route: ActivatedRoute
+    private route: Router
   ) {}
 
   public ngOnDestroy() {
@@ -34,7 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.homeStore.dispatch(homeActions.loadMovies({request: this.search}));
+    this.homeStore.dispatch(homeActions.loadMovies());
     this.storeSubscription();
   }
 
@@ -43,7 +42,7 @@ export class HomeComponent implements OnInit {
       .select(homeSelector.selectListMovies)
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((response) => {
-        this.Movies = [response];
+        this.Movies = response?.listMovies;
       });
 
     this.homeStore
@@ -58,6 +57,15 @@ export class HomeComponent implements OnInit {
           });
         }
       });
+
+      this.homeStore
+        .select(homeSelector.filterMovie)
+        .pipe(takeUntil(this.ngDestroyed$))
+        .subscribe((response) => {
+          if(response){
+            this.Movies = response;
+          }
+        })
   }
 
   public addToFavorite(item:any){
@@ -66,6 +74,12 @@ export class HomeComponent implements OnInit {
       request = new Movie();
       request = _.merge(request, item);
       this.homeStore.dispatch(homeActions.addMovie({request}));
+    }
+  }
+
+  public filterMovies(){
+    if(this.searchText.length > 0){
+      this.homeStore.dispatch(homeActions.searchMovies({request: this.searchText}));
     }
   }
 
