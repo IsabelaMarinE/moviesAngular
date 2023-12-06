@@ -47,7 +47,6 @@ export class DetailsComponent implements OnInit {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((response) => {
         if(response){
-          console.log("response",response)
           this.selectdMovie = response;
         }
       })
