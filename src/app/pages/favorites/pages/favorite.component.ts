@@ -14,7 +14,6 @@ export class FavoriteComponent implements OnInit {
     if(sessionStorage.getItem('favorites')){
       let data: string | null = sessionStorage.getItem('favorites') || '';
       this.listFavorite = JSON.parse(data);
-      console.log("this.listFavorite",this.listFavorite)
     }
   }
 }
