@@ -5,9 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { HomeStoreState } from '../store/reducers/home-store.reducer';
 import * as homeActions from '../store/actions/home.actions';
 import * as homeSelector from '../store/selectors/home.selector';
-import * as _ from 'lodash';
 import Swal from 'sweetalert2';
-import { Movie } from '../../../components/models/movie.model';
 
 
 @Component({
@@ -19,6 +17,9 @@ export class HomeComponent implements OnInit {
 
   public ngDestroyed$ = new Subject();
   public Movies: any = [];
+  public CopyMovies: any = [];
+  public favoritesMovies: any = [];
+  public selectdMovie: any;
   public searchText: string = '';
 
   constructor(
@@ -43,43 +44,37 @@ export class HomeComponent implements OnInit {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((response) => {
         this.Movies = response?.listMovies;
+        this.CopyMovies = response?.listMovies;
       });
-
-    this.homeStore
-      .select(homeSelector.selectAddMovie)
-      .pipe(takeUntil(this.ngDestroyed$))
-      .subscribe((response) => {
-        if(response){
-          Swal.fire({
-            icon: 'success',
-            title: 'Add to favorite List',
-            text: 'Done'
-          });
-        }
-      });
-
-      this.homeStore
-        .select(homeSelector.filterMovie)
-        .pipe(takeUntil(this.ngDestroyed$))
-        .subscribe((response) => {
-          if(response){
-            this.Movies = response;
-          }
-        })
   }
 
   public addToFavorite(item:any){
-    let request;
     if(item){
-      request = new Movie();
-      request = _.merge(request, item);
-      this.homeStore.dispatch(homeActions.addMovie({request}));
+      if(this.favoritesMovies.length == 0){
+        this.favoritesMovies.push(item);
+      }else {
+        if(!this.favoritesMovies.find((movie:any) => movie.title == item.title)){
+          this.favoritesMovies.push(item);
+        }
+      }
+      sessionStorage.setItem('favorites',JSON.stringify(this.favoritesMovies))
     }
   }
 
   public filterMovies(){
-    if(this.searchText.length > 0){
-      this.homeStore.dispatch(homeActions.searchMovies({request: this.searchText}));
+    const search = this.searchText;
+    if(!search || search?.trim().length === 0) {
+      this.Movies = this.CopyMovies;
+      return;
+    }
+    this.Movies = this.CopyMovies.filter((item:any) => {
+       return item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+    })
+  }
+
+  public selectMovie(title: string){
+    if(title != undefined || title != ''){
+      this.route.navigate([`/details/${title}`])
     }
   }
 

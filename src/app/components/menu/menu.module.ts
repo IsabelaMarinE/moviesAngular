@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from './card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { MenuComponent } from './menu.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    CardComponent
+    MenuComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     NgbModule
   ],
   exports: [
-    CardComponent
+    MenuComponent
   ]
 })
-export class CardModule { }
+export class MenuModule { }

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-6">
+      <img [src]="'../../../assets/img/'+selectdMovie.img" class="img-card" [alt]="selectdMovie.title">
+    </div>
+    <div class="col-6">
+      <h1>{{selectdMovie.title}}</h1>
+      <p><b>Description</b></p>
+      <p>{{selectdMovie.description}}</p>
+      <ngb-rating [(rate)]="selectdMovie.rating"></ngb-rating>
+      <p><b>Relased</b></p>
+      <p>{{selectdMovie.relased}}</p>
+      <p><b>Genre</b></p>
+      <div *ngFor="let item of selectdMovie.genre">
+        <span class="badge bg-primary rounded-pill">{{item.type}}</span>
+      </div>
+      <p class="mt-4"><b>Trailer</b></p>
+      <youtube-player videoId="QIZ9aZD6vs0" [height]="250" [width]="500"></youtube-player>
+    </div>
+  </div>
+</div>
+

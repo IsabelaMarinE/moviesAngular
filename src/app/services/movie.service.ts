@@ -104,10 +104,6 @@ export class MovieService {
     return this.favoriteMovies;
   }
 
-  filterMovie(text: string): any {
-
-  }
-
   getMovie(title: string): Observable<Movie | any> {
     return of(this.list_Movies.listMovies.find((item:Movie) => {
       return of(item.title.toLocaleLowerCase() === title.toLocaleLowerCase());

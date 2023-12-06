@@ -1,12 +1,7 @@
 <div class="container">
-  <nav class="navbar navbar-dark bg-dark justify-content-between p-3">
-    <a class="navbar-brand">List Favorites</a>
-    <div class="text-center w-30">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchText" (ngModelChange)="filterMovies()">
-    </div>
-  </nav>
+  <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchText" (input)="filterMovies()">
   <div class="row mt-5" *ngFor="let movie of Movies">
-    <app-card [data]="movie" class="col-6 offset-md-3" (addNewMovieFavorite)="addToFavorite($event)"></app-card>
+    <app-card [data]="movie" [favorite]="false" [movie]="selectdMovie" class="col-6 offset-md-3" (addNewMovieFavorite)="addToFavorite($event)" (selectMovie)="selectMovie($event)"></app-card>
   </div>
 </div>
 

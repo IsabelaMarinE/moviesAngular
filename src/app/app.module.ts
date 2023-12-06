@@ -8,6 +8,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { HomeModule } from './pages/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DetailsModule } from './pages/details/details.module';
+import { MenuModule } from './components/menu/menu.module';
+import { FavoriteModule } from './pages/favorites/favorite.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    DetailsModule,
+    MenuModule,
+    FavoriteModule,
     HttpClientModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
